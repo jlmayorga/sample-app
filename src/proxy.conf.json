@@ -1,0 +1,8 @@
+{
+  "/proxied-backend": {
+    "target": "https://jsonplaceholder.typicode.com",
+    "secure": false,
+    "pathRewrite": {"^/proxied-backend": "/"},
+    "changeOrigin" : true
+  }
+}
