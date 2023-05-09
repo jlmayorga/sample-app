@@ -1,23 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Title
   labels:
-    app: Title
+    app.kubernetes.io/component: sample-app
+    app.kubernetes.io/instance: sample-app
+    app: sample-app
+  name: sample-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: Title
+      deployment: sample-app
   template:
     metadata:
-      name: Title
       labels:
-        app: Title
+        deployment: sample-app
     spec:
       containers:
-        - name: Title
-          image: Image
-          imagePullPolicy: IfNotPresent
-      restartPolicy: Always
-      
+      - image: image-registry.openshift-image-registry.svc:5000/default/sample-app:latest
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+        imagePullPolicy: IfNotPresent
+        name: sample-app
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+          - mountPath: /etc/nginx/conf.d/
+            name: nginx-config-volume
+      volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  labels:
+    app: sample-app
+    app.kubernetes.io/component: sample-app
+    app.kubernetes.io/instance: sample-app
+  name: sample-app
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+  selector:
+    deployment: sample-app

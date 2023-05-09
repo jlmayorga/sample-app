@@ -2,9 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 configMapGenerator:
-  - name: external-properties
+  - name: nginx-config
     files:
-      - application.properties
+      - nginx/default.conf
 
 resources:
   - deployment.yaml

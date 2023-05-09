@@ -1,0 +1,39 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  labels:
+    app: sample-app
+    app.kubernetes.io/component: sample-app
+    app.kubernetes.io/instance: sample-app
+  name: sample-app
+  namespace: default
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: sample-app:latest
+  runPolicy: Serial
+  source:
+    git:
+      uri: https://github.com/jlmayorga/sample-app.git
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: nginx-unprivileged:latest
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - github:
+      secret: T87PvRbKuX6C0FqrbXY-
+    type: GitHub
+  - generic:
+      secret: sBgVbgP7e9iBGifpgvs8
+    type: Generic
+  - type: ConfigChange
+  - type: ImageChange
