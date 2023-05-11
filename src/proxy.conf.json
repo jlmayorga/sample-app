@@ -1,6 +1,6 @@
 {
   "/proxied-backend": {
-    "target": "https://jsonplaceholder.typicode.com",
+    "target": "http://spring-boot-backend-dev.apps.cluster-pg8jq.pg8jq.sandbox2892.opentlc.com",
     "secure": false,
     "pathRewrite": {"^/proxied-backend": "/"},
     "changeOrigin" : true
